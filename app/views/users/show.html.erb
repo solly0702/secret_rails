@@ -1,0 +1,19 @@
+
+<h2><%= @user.name %>'s Secrets'</h2>
+<% @user.secrets.each do |secret| %>
+  <p><%= secret.content %><p>
+  <p><%= secret.likes.count %> likes</p>
+  <%= simple_form_for secret, url: secret_path(secret.id), method: "delete" do |f| %>
+  <%= f.button :submit, value:"Delete" %>
+  <%end%>
+<%end if @user.secrets %>
+<p><%= link_to "Edit Profile", edit_user_path(@user.id) %></p>
+
+<h3>Create Secret<h3>
+  <%= simple_form_for @user, :url => secrets_path, :method => "post" do |f| %>
+    <%= f.association :secrets do |s| %>
+    <%= s.input :content, label: "New Secret" %>
+    <%= s.input :user_id, as: :hidden, input_html: {value: @user.id } %>
+    <% end %>
+  <%= f.button :submit, value: "Create Secret"%>
+  <% end %>

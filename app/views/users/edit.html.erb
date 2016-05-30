@@ -1,0 +1,11 @@
+<h1>Edit user: <%= @user.name %> Profile</h1>
+
+<%= simple_form_for @user, :url => user_path(@user.id), :method => "patch" do |f| %>
+<%=f.input :email, value: @user.email %>
+<%=f.input :name, value: @user.name %>
+<%= f.button :submit, value: "Update"%>
+<% end %>
+
+<%= simple_form_for @user, :url => user_path(@user.id), :method => "delete" do |f| %>
+<%= f.button :submit, value: "Delete Account" %>
+<%end%>

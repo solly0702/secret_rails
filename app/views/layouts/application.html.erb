@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secret</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |e| %>
+      <%= e %>
+    <% end %>
+  <% end %>
+
+  <% if current_user %>
+    <%= simple_form_for current_user, :url => session_path(current_user.id), :method => "delete" do |f| %>
+    <%= f.button :submit, value: "Log Out" %>
+    <% end %>
+  <% end %>
+
+<%= yield %>
+
+</body>
+</html>
